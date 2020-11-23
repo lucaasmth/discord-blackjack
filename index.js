@@ -228,12 +228,12 @@ function gagne(mainJoueur, mainDealer, message, nbRound, players){
 
 
 function getPlayersWhoWantToPlay(collected, messageAuthor){
-	let players = []
+	let players = [];
 	if(collected.get("▶") != undefined){
 		for(let user of collected.get("▶").users.cache){
-			user = user[1]
-			if(!user.bot && user.id != messageAuthor.id){
-				players.push(user)
+			user = user[1];
+			if(!user.bot){
+				players.push(user);
 			}
 		}
 	}

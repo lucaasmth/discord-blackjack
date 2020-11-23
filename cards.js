@@ -1,5 +1,4 @@
 module.exports = class Cards{
-	cards;
 	constructor(){
 		this.cards = ["♠️A","♣️A","♥️A","♦️A",
 					  "♠️2","♣️2","♥️2","♦️2",
