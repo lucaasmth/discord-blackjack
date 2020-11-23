@@ -189,7 +189,7 @@ function perdu(mainJoueur, mainDealer, message, nbRound, players){
 		mainDealerDisplay)
 		.setTimestamp()
 		.setFooter('@lucaasmth & FloW');
-	message.channel.send(embed).then(() => console.log("Stopped game, dealer won..."))
+	message.channel.send(embed).then(() => console.log("Stopped game, dealer won..."));
 }
 
 function gagne(mainJoueur, mainDealer, message, nbRound, players){
@@ -222,7 +222,7 @@ function gagne(mainJoueur, mainDealer, message, nbRound, players){
 		mainDealerDisplay)
 		.setTimestamp()
 		.setFooter('@lucaasmth & FloW');
-	message.channel.send(embed).then(() => console.log("Stopped game, players won...")
+	message.channel.send(embed).then(() => console.log("Stopped game, players won..."));
 }
 
 
