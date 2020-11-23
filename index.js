@@ -24,7 +24,7 @@ client.on("message", message => {
 			.setAuthor(client.user.username, client.user.avatarURL())
 			.setThumbnail(client.user.avatarURL())
 			.addFields(
-				{ name: 'Click ▶ to join', value: 'ça vaut le coup' },
+				{ name: 'Click ▶ to join within 10s', value: 'ça vaut le coup' },
 			)
 			.setTimestamp()
 			.setFooter('@lucaasmth & FloW');
@@ -38,15 +38,24 @@ client.on("message", message => {
 			const filter = (reaction, user) => {
 				return reaction.emoji.name === "▶" && !players.includes(user);
 			};
-			let collected = await sentMessage.awaitReactions(filter, {time: 10000})
+			let collected = await sentMessage.awaitReactions(filter, {time: 10000});
 			players = getPlayersWhoWantToPlay(collected, message.author);
-			players.push(message.author)
-			game(players, message)
+			//players.push(message.author);
+			if (players.length == 0) {
+				const noPlayerEmbed = new Discord.MessageEmbed()
+					.setColor('#fc0303')
+					.setTitle('Personne ne veut jouer')
+					.setDescription('C\'est bien triste :cry:')
+					.setAuthor(client.user.username, client.user.avatarURL())
+					.setThumbnail(client.user.avatarURL())
+					.setTimestamp()
+					.setFooter('@lucaasmth & FloW');
+				message.channel.send(noPlayerEmbed).then(() => console.log("Stopped game, no player..."));
+			} else {
+				game(players, message);
+			}
 		})
 	}
-
-
-
 });
 
 async function game(players, message){
@@ -101,10 +110,8 @@ async function round(cards, mainJoueur, mainDealer, message, nbRound, players){
 		.setTitle('Round '+nbRound+"/5")
 		.setAuthor(client.user.username, client.user.avatarURL())
 		.setThumbnail(client.user.avatarURL())
-		.addField("Votre main",
-		mainJoueurDisplay)
-		.addField("Main dealer",
-		mainDealerDisplay)
+		.addField("Votre main", mainJoueurDisplay)
+		.addField("Main dealer", mainDealerDisplay)
 		.setTimestamp()
 		.setFooter('@lucaasmth & FloW');
 	message.channel.send(embed).then(async sentMessage => {
@@ -182,7 +189,7 @@ function perdu(mainJoueur, mainDealer, message, nbRound, players){
 		mainDealerDisplay)
 		.setTimestamp()
 		.setFooter('@lucaasmth & FloW');
-	message.channel.send(embed)
+	message.channel.send(embed).then(() => console.log("Stopped game, dealer won..."))
 }
 
 function gagne(mainJoueur, mainDealer, message, nbRound, players){
@@ -215,7 +222,7 @@ function gagne(mainJoueur, mainDealer, message, nbRound, players){
 		mainDealerDisplay)
 		.setTimestamp()
 		.setFooter('@lucaasmth & FloW');
-	message.channel.send(embed)
+	message.channel.send(embed).then(() => console.log("Stopped game, players won...")
 }
 
 
