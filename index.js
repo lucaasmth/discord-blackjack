@@ -133,8 +133,7 @@ async function round(cards, mainJoueur, mainDealer, message, nbRound, players){
 				while(totalDealer < totalJoueur && totalDealer <= 21){
 					mainDealer.push(cards.drawCard())
 					totalDealer = Cards.sumCards(mainDealer)
-					console.log("erazeaze")
-					console.log(totalDealer)
+					//console.log(totalDealer)
 					if(totalDealer == 21){
 						perdu(mainJoueur, mainDealer, message, nbRound, players)
 						return 0;
